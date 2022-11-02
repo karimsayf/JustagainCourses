@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>229707665127-4gasn9e30app2l39nuo4724e8r8tekud.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.229707665127-4gasn9e30app2l39nuo4724e8r8tekud</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDSogYJVCL-1Xkk-QuZkAI_zYUbisDlyoE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>229707665127</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.justagain.testtask.justagainTeskTask</string>
+	<key>PROJECT_ID</key>
+	<string>justagaincourses</string>
+	<key>STORAGE_BUCKET</key>
+	<string>justagaincourses.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:229707665127:ios:4e9cac9bbe4ef06e81dc42</string>
+</dict>
+</plist>
