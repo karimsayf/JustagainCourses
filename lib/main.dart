@@ -3,19 +3,26 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justagain_tesk_task/firebase_options.dart';
-import 'package:justagain_tesk_task/screens/auth/login.dart';
+import 'package:justagain_tesk_task/screens/admin_dashboard/add_quiz.dart';
+import 'package:justagain_tesk_task/screens/auth/authentication.dart';
 import 'package:justagain_tesk_task/screens/home.dart';
+import 'package:justagain_tesk_task/services/localization_services.dart';
 import 'package:justagain_tesk_task/services/navigation_services.dart';
 import 'package:justagain_tesk_task/services/service_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ServiceProvider>(
       create: (context) => ServiceProvider(),
+    ),
+    ChangeNotifierProvider<LocalizationsService>(
+      create: (context) => LocalizationsService(),
     ),
 
   ],
@@ -36,7 +43,10 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Justagian Test Task',
-            navigatorKey: NavigationService.navigatorKey,
+              locale: Provider.of<LocalizationsService>(context).appLocale,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              navigatorKey: NavigationService.navigatorKey,
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
@@ -44,9 +54,9 @@ class MyApp extends StatelessWidget {
               stream:FirebaseAuth.instance.authStateChanges() ,
               builder: (context, snapshot) {
                 if(snapshot.data == null){
-                  return const Login();
+                  return const Authentication();
                 }
-                return Home();
+                return Authentication();
               },
             )
           );
