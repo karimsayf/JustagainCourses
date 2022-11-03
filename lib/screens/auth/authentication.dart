@@ -162,7 +162,9 @@ class _AuthenticationState extends State<Authentication> {
                     Visibility(
                       visible: _currentAuth == Auth.login,
                       child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _forgotPassword();
+                          },
                           child:  Text(
                               AppLocalizations.of(context)!.forgotPassword,
                             style: const TextStyle(color: Colors.white),
