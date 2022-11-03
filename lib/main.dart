@@ -8,6 +8,7 @@ import 'package:justagain_tesk_task/screens/auth/authentication.dart';
 import 'package:justagain_tesk_task/screens/home.dart';
 import 'package:justagain_tesk_task/services/localization_services.dart';
 import 'package:justagain_tesk_task/services/navigation_services.dart';
+import 'package:justagain_tesk_task/services/push_notifications_service.dart';
 import 'package:justagain_tesk_task/services/service_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,6 +18,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await initMessagingServices();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ServiceProvider>(
       create: (context) => ServiceProvider(),
