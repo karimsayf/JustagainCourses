@@ -33,6 +33,7 @@
   "save": "Save Degree",
   "exit" : "Exit",
   "resetPassword" : "Reset Password",
-  "logOut" : "Log Out"
+  "logOut" : "Log Out",
+  "changeLang" : "Change Language"
 
 }

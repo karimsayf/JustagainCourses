@@ -1,7 +1,11 @@
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justagain_tesk_task/enums/enums.dart';
 import 'package:justagain_tesk_task/screens/home.dart';
+import 'package:justagain_tesk_task/services/localization_services.dart';
 import 'package:justagain_tesk_task/services/service_provider.dart';
 import 'package:justagain_tesk_task/utils/constants.dart';
 import 'package:provider/provider.dart';
@@ -234,6 +238,31 @@ class _AuthenticationState extends State<Authentication> {
                               MaterialStateProperty.all(Colors.white30)),
                       child: Text(
                           _currentAuth == Auth.login ? AppLocalizations.of(context)!.login : AppLocalizations.of(context)!.signUp),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () async{
+                            Provider.of<LocalizationsService>(context,listen: false).changeAppLocale(englishLocale);
+
+
+
+                          },
+                          child: Text(
+                            'English',style: TextStyle(color: Colors.white),textAlign: TextAlign.center,),
+                        ),
+                        TextButton(
+                          onPressed: () async{
+                              Provider.of<LocalizationsService>(context,listen: false).changeAppLocale(arabicLocale);
+
+
+
+                          },
+                          child: Text(
+                               'عربي',style: TextStyle(color: Colors.white),textAlign: TextAlign.center,),
+                        ),
+                      ],
                     )
                   ],
                 )),
