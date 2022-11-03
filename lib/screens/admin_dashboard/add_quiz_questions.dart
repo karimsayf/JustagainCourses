@@ -255,7 +255,8 @@ class _AddQuizQuestionsState extends State<AddQuizQuestions> {
                       }else{
                         await Provider.of<ServiceProvider>(context,listen: false).addQuiz(widget.quizName, widget.quizDesc, widget.quizImageUrl, _questions);
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.doneAdding)));
-
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
                       }
                     },
                     style: ButtonStyle(

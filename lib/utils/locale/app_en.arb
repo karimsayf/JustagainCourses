@@ -31,6 +31,8 @@
   "congrats" : "Congratulations",
   "youGot" : "You GOT",
   "save": "Save Degree",
-  "exit" : "Exit"
+  "exit" : "Exit",
+  "resetPassword" : "Reset Password",
+  "logOut" : "Log Out"
 
 }

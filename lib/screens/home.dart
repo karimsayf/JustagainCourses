@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:justagain_tesk_task/screens/admin_dashboard/add_quiz.dart';
+import 'package:justagain_tesk_task/screens/auth/authentication.dart';
 import 'package:justagain_tesk_task/screens/my_graders/my_grades.dart';
 import 'package:justagain_tesk_task/screens/quiz_displayer/quiz.dart';
 import 'package:justagain_tesk_task/services/service_provider.dart';
@@ -17,7 +19,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late final Future _getUserData = Provider.of<ServiceProvider>(context,listen: false).getUserData();
-  late final Future _getQuizzes = Provider.of<ServiceProvider>(context,listen: false).getQuizzes();
+  late Future _getQuizzes = Provider.of<ServiceProvider>(context,listen: false).getQuizzes();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +59,39 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 40.sp,),
-            IconButton(onPressed: (){}, icon: Icon(Icons.menu,color: Colors.white,)),
+            IconButton(onPressed: (){
+              showDialog(context: context, builder: (context) => AlertDialog(
+                content: SizedBox(
+                  height: 300,
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: AssetImage('assets/bgs/profile_placeholder.png'),
+                        radius: 50,
+                      ),
+                      SizedBox(height: 10,),
+                      Text("Salaam All!"),
+                      SizedBox(height: 5,),
+
+                      Text(FirebaseAuth.instance.currentUser!.email!,style: TextStyle(fontSize: 10)),
+                      SizedBox(height: 20,),
+
+                      ListTile(onTap: ()async{
+
+                        await Provider.of<ServiceProvider>(context,listen: false).forgotPassword(FirebaseAuth.instance.currentUser!.email!);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.forgotEmailSent)));
+
+                      },title: Text(AppLocalizations.of(context)!.resetPassword),leading: Icon(Icons.lock_reset),),
+                      ListTile(onTap: ()async{
+                        await FirebaseAuth.instance.signOut();
+                        Navigator.of(context)!.pushReplacement(MaterialPageRoute(builder: (context) => Authentication(),));
+                      },title: Text(AppLocalizations.of(context)!.logOut),leading: Icon(Icons.logout),)
+
+                    ],
+                  ),
+                ),
+              ),);
+            }, icon: Icon(Icons.menu,color: Colors.white,)),
             Padding(
               padding: const EdgeInsets.only(right: 20,left: 20,bottom: 20,top: 10),
               child: Row(
@@ -87,9 +121,19 @@ class _HomeState extends State<Home> {
                   future: _getQuizzes,
                   builder: (context, snapshot) {
                      if(snapshot.hasData){
-                       return SingleChildScrollView(
-                         child: Column(
-                           children: snapshot.data.docs.map<Widget>((item)=>_buildCourse(item)).toList()
+                       return RefreshIndicator(
+                         onRefresh: () {
+                           setState(() {
+                             _getQuizzes = Provider.of<ServiceProvider>(context,listen: false).getQuizzes();
+                           });
+                           return Future.value(true);
+                         },
+                         child: SingleChildScrollView(
+                           physics: const AlwaysScrollableScrollPhysics(),
+
+                           child: Column(
+                             children: snapshot.data.docs.map<Widget>((item)=>_buildCourse(item)).toList()
+                           ),
                          ),
                        );
                      }else{
